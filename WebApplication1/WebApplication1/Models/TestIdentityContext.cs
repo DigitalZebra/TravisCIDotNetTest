@@ -5,9 +5,9 @@ using System.Web;
 
 namespace WebApplication1.Models
 {
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using MySql.Data.Entity;
-    using System.Data.Entity;
+	using Microsoft.AspNet.Identity.EntityFramework;
+	using MySql.Data.Entity;
+	using System.Data.Entity;
     
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
