@@ -9,5 +9,4 @@ before_install:
 after_success:
     - pwd
     - ls
-    - 'echo "set ssl:verify-certificate no" >> /etc/lftp.conf'
-    - 'lftp -p 21 -e "mirror -R . /" -u $FTPUSER,$FTPPWD 72.18.134.185'
+    - 'lftp -p 21 -e "set ftp:ssl-allow no; mirror -R . /" -u $FTPUSER,$FTPPWD 72.18.134.185'
