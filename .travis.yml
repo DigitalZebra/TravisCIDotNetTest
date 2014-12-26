@@ -9,7 +9,5 @@ before_install:
 after_success:
 - pwd
 - ls
-- echo $FTPUSER
-- echo $FTPPWD
-- "curl --ftp-create-dirs -T WebApplication1/WebApplication1.sln -u $FTPUSER:$FTPPASSWORD ftp://72.18.134.185:21/directory/myfile"
-    #- 'lftp -p 21 -e "set ftp:ssl-allow no; mirror -R . /" -u $FTPUSER,$FTPPWD 72.18.134.185'
+- "curl --ftp-create-dirs -T WebApplication1/WebApplication1.sln -u $FTPUSER:$FTPPASSWORD ftp://72.18.134.185:21/"
+    #- 'lftp -p 21 -e "set ftp:ssl-allow no; mirror -R . /" -u $FTPUSER,$FTPPASSWORD 72.18.134.185'
