@@ -7,4 +7,6 @@ env:
 before_install:
     - sudo apt-get install -qq lftp
 after_success:
-    'lftp -e "mirror -R . /" -u $FTPUSER,$FTPPWD ftp://72.18.134.185'
+    - pwd
+    - ls
+    - 'lftp -p 21 -e "mirror -R . /" -u $FTPUSER,$FTPPWD 72.18.134.185'
