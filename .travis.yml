@@ -2,14 +2,14 @@ language: csharp
 solution: WebApplication1/WebApplication1.sln
 env:
   global:
-    secure: UJKgClzKdJgQHOKM2qz+uYkrWJB8elxlU9IBOXrTMTJBs+KiEuqvmK/n/pTPwlitOkw67wbRpXse844a/Cw2uOCywHajqG+HZbbG/vCDkosaiDMjSlFOV8Xh5xIdxzQo1G6Q4WmNtBjZs7XG9PFRWN4PKyppwgd4x8sWBbNjhn0=
-    secure: SIKE7mYNtWEN4vJyMaL3XkuW+s0umxjKxIoh5RH1/yVAvqgf3D8n0ladiqf3hWci88u87GH8TnUzRFOnCKl6imU/5S9D+UUITOWsgGnMLOGwOc9AMb5oTP2ILuL3gQIkBmg8zbvm+9N5zCqJtyOsRFkf5E+EaaxTp8ULeXU2pZY=
+  - secure: KyUk1PZyhyAV56MQVbOh3zhd9MQvBUvX26ZtHOqXbRTtnpSv+jv5XEcS+SETl3/SWpwXi7jyPxgz53vvXdoIxV4R7VgMUg3wiZZF4ygTXWF7m2Q5tD7NqQONmOS0Y3o+RCXCD0yb+eGJFn5tuGHIsfPWfxkt5S/w4lrXAeKD0Js=
+  - secure: YX+f6oU7B6kIUaIunje1yOt+XTIYW/gdg+x8L4w6aZCX+5rHco7XtYkPikDREtzMJdhLWijAajjTa3FOCAZIm3j2UKBP1ecxiCxludCKVtPnbkL8NYEIMa52y6xaUPNb8YA4Uzci6hZC2Ky1qldNijLtB1VYEkbSxNOH6CpA1rw=
 before_install:
-    - sudo apt-get install -qq lftp
+- sudo apt-get install -qq lftp
 after_success:
-    - pwd
-    - ls
-    - echo $FTPUSER
-    - echo $FTPPWD
-    - "curl --ftp-create-dirs -T WebApplication1/WebApplication1.sln -u $FTPUSER:$FTPPWD ftp://72.18.134.185:21/directory/myfile"
+- pwd
+- ls
+- echo $FTPUSER
+- echo $FTPPWD
+- "curl --ftp-create-dirs -T WebApplication1/WebApplication1.sln -u $FTPUSER:$FTPPASSWORD ftp://72.18.134.185:21/directory/myfile"
     #- 'lftp -p 21 -e "set ftp:ssl-allow no; mirror -R . /" -u $FTPUSER,$FTPPWD 72.18.134.185'
