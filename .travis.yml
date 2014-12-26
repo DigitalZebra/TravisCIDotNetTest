@@ -4,5 +4,7 @@ env:
   global:
     secure: UJKgClzKdJgQHOKM2qz+uYkrWJB8elxlU9IBOXrTMTJBs+KiEuqvmK/n/pTPwlitOkw67wbRpXse844a/Cw2uOCywHajqG+HZbbG/vCDkosaiDMjSlFOV8Xh5xIdxzQo1G6Q4WmNtBjZs7XG9PFRWN4PKyppwgd4x8sWBbNjhn0=
     secure: SIKE7mYNtWEN4vJyMaL3XkuW+s0umxjKxIoh5RH1/yVAvqgf3D8n0ladiqf3hWci88u87GH8TnUzRFOnCKl6imU/5S9D+UUITOWsgGnMLOGwOc9AMb5oTP2ILuL3gQIkBmg8zbvm+9N5zCqJtyOsRFkf5E+EaaxTp8ULeXU2pZY=
+before_install:
+    - sudo apt-get install -qq lftp
 after_success:
     'lftp -e "mirror -R . /" -u $FTPUSER,$FTPPWD ftp://72.18.134.185'
