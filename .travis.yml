@@ -9,6 +9,6 @@ before_install:
 after_success:
 - pwd
 - ls
-- 'lftp -p 21 -e "set ftp:ssl-allow no; mirror -R . /" -u $FTPUSER,$FTPPASSWORD 72.18.134.185'
+- 'lftp -p 21 -c "set ftp:ssl-allow no; open -u $FTPUSER,$FTPPASSWORD 72.18.134.185; mirror -R . /"'
 #- "curl --ftp-create-dirs -T WebApplication1/WebApplication1.sln -u $FTPUSER:$FTPPASSWORD ftp://72.18.134.185:21/"
 
