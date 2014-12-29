@@ -23,7 +23,7 @@ namespace WebApplication1.Models
         /// </summary>
         /// <param name="connStringName">Connection to use for the database</param>
         public ApplicationContext(string connStringName) : base(connStringName) { }
- 
+
         /// <summary>
         /// Some database fixup / model constraints
         /// </summary>
@@ -31,30 +31,41 @@ namespace WebApplication1.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
- 
+
+			const string SchemaName = "";
+
             #region Fix asp.net identity 2.0 tables under MySQL
             // Explanations: primary keys can easily get too long for MySQL's 
             // (InnoDB's) stupid 767 bytes limit.
             // With the two following lines we rewrite the generation to keep
             // those columns "short" enough
             modelBuilder.Entity<IdentityRole>()
+				.ToTable("Roles", SchemaName)
                 .Property(c => c.Name)
                 .HasMaxLength(128)
                 .IsRequired();
- 
+
+			modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles", SchemaName);
+
+			modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims", SchemaName);
+
+			modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins", SchemaName);
+
             // We have to declare the table name here, otherwise IdentityUser 
             // will be created
-            modelBuilder.Entity<IdentityUser>()
-                .ToTable("AspNetUsers")
+            modelBuilder.Entity<ApplicationUser>()
+				.ToTable("Users", SchemaName)
                 .Property(c => c.UserName)
                 .HasMaxLength(128)
                 .IsRequired();
             #endregion
         }
 
+	
+
 		public static ApplicationContext Create()
 		{
-				return new ApplicationContext();
+			return new ApplicationContext();
 		}
     }
 }
