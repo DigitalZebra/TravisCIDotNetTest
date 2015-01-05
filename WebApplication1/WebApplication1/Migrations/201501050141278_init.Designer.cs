@@ -13,7 +13,7 @@ namespace WebApplication1.Models
         
         string IMigrationMetadata.Id
         {
-            get { return "201412292133285_init"; }
+            get { return "201501050141278_init"; }
         }
         
         string IMigrationMetadata.Source

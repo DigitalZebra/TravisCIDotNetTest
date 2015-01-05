@@ -5,10 +5,25 @@ using System.Web;
 
 namespace WebApplication1.Models
 {
-	using Microsoft.AspNet.Identity.EntityFramework;
-	using MySql.Data.Entity;
-	using System.Data.Entity;
-    
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using MySql.Data.Entity;
+    using System.Data.Entity;
+    using System.Data.Entity.Core.Metadata.Edm;
+    using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.ModelConfiguration.Conventions;
+
+    // A custom convention.
+    class FirstCharLowerCaseConvention : IStoreModelConvention<EdmProperty>
+    {
+        public void Apply(EdmProperty property, DbModel model)
+        {
+            property.Name = property.Name.Substring(0, 1).ToLower()
+                          + property.Name.Substring(1);
+        }
+    }
+
+
+
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
@@ -32,6 +47,8 @@ namespace WebApplication1.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Conventions.Add(new FirstCharLowerCaseConvention());
+
 			const string SchemaName = "";
 
             #region Fix asp.net identity 2.0 tables under MySQL
@@ -40,21 +57,21 @@ namespace WebApplication1.Models
             // With the two following lines we rewrite the generation to keep
             // those columns "short" enough
             modelBuilder.Entity<IdentityRole>()
-				.ToTable("Roles", SchemaName)
+				.ToTable("roles", SchemaName)
                 .Property(c => c.Name)
                 .HasMaxLength(128)
                 .IsRequired();
 
-			modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles", SchemaName);
+			modelBuilder.Entity<IdentityUserRole>().ToTable("userRoles", SchemaName);
 
-			modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims", SchemaName);
+			modelBuilder.Entity<IdentityUserClaim>().ToTable("userClaims", SchemaName);
 
-			modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins", SchemaName);
+			modelBuilder.Entity<IdentityUserLogin>().ToTable("userLogins", SchemaName);
 
             // We have to declare the table name here, otherwise IdentityUser 
             // will be created
             modelBuilder.Entity<ApplicationUser>()
-				.ToTable("Users", SchemaName)
+				.ToTable("users", SchemaName)
                 .Property(c => c.UserName)
                 .HasMaxLength(128)
                 .IsRequired();
